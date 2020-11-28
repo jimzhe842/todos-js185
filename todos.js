@@ -1,3 +1,4 @@
+const config = require("./lib/config");
 const express = require('express');
 const pug = require('pug');
 const flash = require("express-flash");
@@ -11,8 +12,10 @@ const PgPersistence = require("./lib/pg-persistence");
 const catchError = require("./lib/catch-error");
 
 const app = express();
-const host = "localhost";
-const port = 3000;
+const host = config.HOST;
+const port = config.PORT;
+// const host = "localhost";
+// const port = 3000;
 const LokiStore = store(session);
 
 // const { sortTodos } = require('./lib/sort');
@@ -36,7 +39,7 @@ app.use(session({
   name: "launch-school-todos-session-id",
   resave: false,
   saveUninitialized: true,
-  secret: "this is not very secure",
+  secret: config.SECRET,
   store: new LokiStore({}),
 }));
 
